@@ -60,13 +60,7 @@ class InventarioFarmacia:
       precio = precio * 0.90
       print("Se aplico descuento del 10%.")
 
-    medicamento = Medicamento(
-      id_medicamento,
-      nombre,
-      stock,
-      vencimiento,
-      precio
-    )
+    medicamento = Medicamento(id_medicamento,nombre,stock,vencimiento,precio)
 
     nuevo_nodo = BinaryTreeNode(medicamento)
 
@@ -173,12 +167,7 @@ class InventarioFarmacia:
 
   def eliminar_por_id(self, id_medicamento):
 
-    self.raiz = self.eliminar_recursivo(
-      self.raiz,
-      id_medicamento,
-      True
-    )
-
+    self.raiz = self.eliminar_recursivo(self.raiz,id_medicamento,True)
 
   def eliminar_recursivo(self, nodo, id_medicamento, cambiar_estado):
 
@@ -187,19 +176,11 @@ class InventarioFarmacia:
 
     if id_medicamento < nodo.data.id_medicamento:
 
-      nodo.leftchild = self.eliminar_recursivo(
-        nodo.leftchild,
-        id_medicamento,
-        cambiar_estado
-      )
+      nodo.leftchild = self.eliminar_recursivo(nodo.leftchild,id_medicamento,cambiar_estado)
 
     elif id_medicamento > nodo.data.id_medicamento:
 
-      nodo.rightchild = self.eliminar_recursivo(
-        nodo.rightchild,
-        id_medicamento,
-        cambiar_estado
-      )
+      nodo.rightchild = self.eliminar_recursivo(nodo.rightchild,id_medicamento,cambiar_estado)
 
     else:
 
@@ -216,21 +197,14 @@ class InventarioFarmacia:
 
       nodo.data = reemplazo.data
 
-      nodo.rightchild = self.eliminar_recursivo(
-        nodo.rightchild,
-        reemplazo.data.id_medicamento,
-        False
-      )
+      nodo.rightchild = self.eliminar_recursivo(nodo.rightchild,reemplazo.data.id_medicamento,False)
 
     return nodo
 
 
   def limpiar_caducados(self, anio_actual):
 
-    self.limpiar_recursivo(
-      self.raiz,
-      anio_actual
-    )
+    self.limpiar_recursivo(self.raiz,anio_actual)
 
 
   def limpiar_recursivo(self, nodo, anio_actual):
@@ -238,20 +212,12 @@ class InventarioFarmacia:
     if nodo is None:
       return
 
-    self.limpiar_recursivo(
-      nodo.leftchild,
-      anio_actual
-    )
+    self.limpiar_recursivo(nodo.leftchild,anio_actual)
 
-    self.limpiar_recursivo(
-      nodo.rightchild,
-      anio_actual
-    )
+    self.limpiar_recursivo(nodo.rightchild,anio_actual)
 
     if nodo.data.vencimiento <= anio_actual:
-      self.eliminar_por_id(
-        nodo.data.id_medicamento
-      )
+      self.eliminar_por_id(nodo.data.id_medicamento)
 
 
   def mostrar_inverso(self):
@@ -282,11 +248,7 @@ class InventarioFarmacia:
       minimo = maximo
       maximo = auxiliar
 
-    self.rango_recursivo(
-      self.raiz,
-      minimo,
-      maximo
-    )
+    self.rango_recursivo(self.raiz,minimo,maximo)
 
 
   def rango_recursivo(self, nodo, minimo, maximo):
@@ -295,21 +257,13 @@ class InventarioFarmacia:
       return
 
     if nodo.data.id_medicamento > minimo:
-      self.rango_recursivo(
-        nodo.leftchild,
-        minimo,
-        maximo
-      )
+      self.rango_recursivo(nodo.leftchild,minimo,maximo)
 
     if minimo <= nodo.data.id_medicamento <= maximo:
       print(nodo.data)
 
     if nodo.data.id_medicamento < maximo:
-      self.rango_recursivo(
-        nodo.rightchild,
-        minimo,
-        maximo
-      )
+      self.rango_recursivo(nodo.rightchild,minimo,maximo)
 
 
   def buscar_sucesor(self, id_medicamento):
@@ -433,31 +387,20 @@ def menu():
       vencimiento = int(input("Año vencimiento: "))
       precio = float(input("Precio: "))
 
-      inventario.registrar_medicamento(
-        id_medicamento,
-        nombre,
-        stock,
-        vencimiento,
-        precio
-      )
+      inventario.registrar_medicamento(id_medicamento,nombre,stock,vencimiento,precio)
 
     elif opcion == "2":
 
       id_medicamento = int(input("ID medicamento: "))
       cantidad = int(input("Cantidad: "))
 
-      inventario.vender_medicamento(
-        id_medicamento,
-        cantidad
-      )
+      inventario.vender_medicamento(id_medicamento,cantidad)
 
     elif opcion == "3":
 
       id_medicamento = int(input("ID eliminar: "))
 
-      inventario.eliminar_por_id(
-        id_medicamento
-      )
+      inventario.eliminar_por_id(id_medicamento)
 
     elif opcion == "4":
 
@@ -478,20 +421,14 @@ def menu():
       minimo = int(input("ID minimo: "))
       maximo = int(input("ID maximo: "))
 
-      inventario.consultar_rango(
-        minimo,
-        maximo
-      )
+      inventario.consultar_rango(minimo,maximo)
 
     elif opcion == "8":
 
       origen = int(input("ID origen: "))
       destino = int(input("ID destino: "))
 
-      inventario.fusionar(
-        origen,
-        destino
-      )
+      inventario.fusionar(origen,destino)
 
     elif opcion == "0":
 
